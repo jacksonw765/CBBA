@@ -1,0 +1,48 @@
+Best CPT Players: 
+ John Knight III: CPT, 87.3
+ Neemias Queta: CPT, 234.5
+ Quinn Taylor: CPT, 269.9
+ Cody Martin: CPT, 297.8
+ Caleb Martin: CPT, 298.2
+ Trey Porter: CPT, 298.3
+ Jazz Johnson: CPT, 299.7
+ Tre'Shawn Thurman: CPT, 300.8
+ Dwayne Brown Jr.: CPT, 308.2
+ Jordan Caroline: CPT, 311.5
+ Abel Porter: CPT, 350.9
+ Nisre Zouzoua: CPT, 365.9
+ Ben Fakira: CPT, 385.6
+ Quinn Taylor: CPT, 404.8
+ Sam Merrill: CPT, 420.2
+ Cody Martin: CPT, 446.7
+ Caleb Martin: CPT, 447.2
+ Trey Porter: CPT, 447.5
+ Brock Miller: CPT, 453.6
+ Abel Porter: CPT, 526.3
+ Tauriawn Knight: CPT, 612.2
+ Alek Johnson: CPT, 1339.3
+ David Cunningham: CPT, 3000.0
+Best UTIL Players
+ John Knight III: CPT, 87.3
+ Neemias Queta: CPT, 234.5
+ Quinn Taylor: CPT, 269.9
+ Cody Martin: CPT, 297.8
+ Caleb Martin: CPT, 298.2
+ Trey Porter: CPT, 298.3
+ Jazz Johnson: CPT, 299.7
+ Tre'Shawn Thurman: CPT, 300.8
+ Dwayne Brown Jr.: CPT, 308.2
+ Jordan Caroline: CPT, 311.5
+ Abel Porter: CPT, 350.9
+ Nisre Zouzoua: CPT, 365.9
+ Ben Fakira: CPT, 385.6
+ Quinn Taylor: CPT, 404.8
+ Sam Merrill: CPT, 420.2
+ Cody Martin: CPT, 446.7
+ Caleb Martin: CPT, 447.2
+ Trey Porter: CPT, 447.5
+ Brock Miller: CPT, 453.6
+ Abel Porter: CPT, 526.3
+ Tauriawn Knight: CPT, 612.2
+ Alek Johnson: CPT, 1339.3
+ David Cunningham: CPT, 3000.0
