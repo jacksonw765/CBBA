@@ -1,8 +1,10 @@
 import requests
 import pprint
+import time
 from bs4 import BeautifulSoup
+import sql_connect
 
-base_id = 39346
+base_id = 30000
 root_page = 'http://www.espn.com/mens-college-basketball/player/_/id/'
 remainder = '/justin-jenifer?src=mobile'
 
@@ -32,8 +34,10 @@ def get_previous_game(base_log, index):
         game.append("1st game reb:" + pts)
     return game
 
-for id in range(19, 25):
-    request = root_page + str(base_id) + str(id) + remainder
+for id in range(0, 3000):
+    time.sleep(1)
+    player_id = str(base_id) + str(id)
+    request = root_page + player_id + remainder
     page = requests.get(request)
     soup = BeautifulSoup(page.content, 'html.parser')
     name = soup.find_all('h1')[0].getText()
@@ -44,44 +48,17 @@ for id in range(19, 25):
             #check if player is in NBA
             nba = soup.find("ul", "player-metadata floatleft").getText()
             if 'Drafted' not in nba:
-                year = soup.find('ul', 'general-info').find_all('li')[1].getText()
-                base_index = 28
-                base_log = soup.find_all("td", attrs={'style': 'text-align: right;'})
-                print(name)
-                game_list = []
-                if year == "Freshman":
-                    pprint.pprint(get_previous_game(base_log, base_index))
-                    pprint.pprint(get_previous_game(base_log, base_index))
-                if year == "Sophomore":
-                    base_index = base_index * 2
-                    pprint.pprint(get_previous_game(base_log, base_index))
-                    pprint.pprint(get_previous_game(base_log, base_index+14))
-                if year == 'Junior':
-                    base_index = base_index*3
-                    pprint.pprint(get_previous_game(base_log, base_index))
-                    pprint.pprint(get_previous_game(base_log, base_index+14))
-                if year == 'Senior':
-                    base_index = base_index * 4
-                    pprint.pprint(get_previous_game(base_log, base_index))
-                    pprint.pprint(get_previous_game(base_log, base_index+14))
 
-
-
-                """
                 team = soup.find("li", "last").getText()
                 data = soup.find("table", "header-stats")
-                PPG = data.findAll(lambda tag: tag.name == 'td')[0].getText()
-                RPG = data.findAll(lambda tag: tag.name == 'td')[1].getText()
-                APG = data.findAll(lambda tag: tag.name == 'td')[2].getText()
-                print(name + ":")
-                print(team)
-                print(" PPG: " + PPG)
-                print(" RPG: " + RPG)
-                print(" APG: " + APG)
-                """
+                ppg = data.findAll(lambda tag: tag.name == 'td')[0].getText()
+                rpg = data.findAll(lambda tag: tag.name == 'td')[1].getText()
+                apg = data.findAll(lambda tag: tag.name == 'td')[2].getText()
+                print("Player found: " + name)
+                sql_connect.create_sql_player(int(player_id), name, team, ppg, rpg, apg)
 
     except AttributeError as e:
-        print("Player found but is bad" + str(e))
+        print("Player found but has no stats")
 
 
 
