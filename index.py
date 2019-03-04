@@ -1,6 +1,7 @@
 import requests
 import pprint
 import time
+import datetime
 from bs4 import BeautifulSoup
 import sql_connect
 
@@ -34,13 +35,15 @@ def get_previous_game(base_log, index):
         game.append("1st game reb:" + pts)
     return game
 
-for id in range(0, 3000):
+first = datetime.datetime.now()
+for id in range(0, 5000):
     time.sleep(1)
     player_id = str(base_id) + str(id)
     request = root_page + player_id + remainder
     page = requests.get(request)
     soup = BeautifulSoup(page.content, 'html.parser')
     name = soup.find_all('h1')[0].getText()
+    print("Checking player ID: " + player_id)
     try:
         # check for invalid players
         if name != "College Basketball Players":
@@ -48,7 +51,6 @@ for id in range(0, 3000):
             #check if player is in NBA
             nba = soup.find("ul", "player-metadata floatleft").getText()
             if 'Drafted' not in nba:
-
                 team = soup.find("li", "last").getText()
                 data = soup.find("table", "header-stats")
                 ppg = data.findAll(lambda tag: tag.name == 'td')[0].getText()
@@ -59,6 +61,9 @@ for id in range(0, 3000):
 
     except AttributeError as e:
         print("Player found but has no stats")
+
+last = datetime.datetime.now()
+print((last - first).min)
 
 
 
