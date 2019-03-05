@@ -5,40 +5,15 @@ import datetime
 from bs4 import BeautifulSoup
 import sql_connect
 
-base_id = 30000
+base_id = 3000000
 root_page = 'http://www.espn.com/mens-college-basketball/player/_/id/'
 remainder = '/justin-jenifer?src=mobile'
 
 
-def get_previous_game(base_log, index):
-    game = []
-    if index >= base_log.__len__():
-        print("Player is out for season or did not play \n")
-    else:
-        min = base_log[index].getText()
-        fg_percent = base_log[index + 2].getText()
-        e_percent = base_log[index + 4].getText()
-        reb = base_log[index + 7].getText()
-        ast = base_log[index + 8].getText()
-        blk = base_log[index + 9].getText()
-        stl = base_log[index + 10].getText()
-        turno = base_log[index + 12].getText()
-        pts = base_log[index + 13].getText()
-        game.append("1st game min: " + min)
-        game.append("1st game fg%: " + fg_percent)
-        game.append("1st game 3point: " + e_percent)
-        game.append("1st game reb:" + reb)
-        game.append("1st game ast:" + ast)
-        game.append("1st game blk:" + blk)
-        game.append("1st game stl:" + stl)
-        game.append("1st game to:" + turno)
-        game.append("1st game reb:" + pts)
-    return game
 
 first = datetime.datetime.now()
-for id in range(0, 5000):
-    time.sleep(1)
-    player_id = str(base_id) + str(id)
+for id in range(45600, 2000000):
+    player_id = str(base_id + id)
     request = root_page + player_id + remainder
     page = requests.get(request)
     soup = BeautifulSoup(page.content, 'html.parser')
