@@ -5,7 +5,7 @@ import datetime
 from bs4 import BeautifulSoup
 import sql_connect
 
-base_id = 3000000
+base_id = 3777183
 root_page = 'http://www.espn.com/mens-college-basketball/player/_/id/'
 remainder = '/justin-jenifer?src=mobile'
 
