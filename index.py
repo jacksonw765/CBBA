@@ -3,16 +3,15 @@ import pprint
 import time
 import datetime
 from bs4 import BeautifulSoup
-import sql_connect
+import sql_player
 
-base_id = 3777183
+base_id = 4070389
 root_page = 'http://www.espn.com/mens-college-basketball/player/_/id/'
 remainder = '/justin-jenifer?src=mobile'
 
 
-
 first = datetime.datetime.now()
-for id in range(45600, 2000000):
+for id in range(0, 1):
     player_id = str(base_id + id)
     request = root_page + player_id + remainder
     page = requests.get(request)
@@ -32,13 +31,12 @@ for id in range(45600, 2000000):
                 rpg = data.findAll(lambda tag: tag.name == 'td')[1].getText()
                 apg = data.findAll(lambda tag: tag.name == 'td')[2].getText()
                 print("Player found: " + name)
-                sql_connect.create_sql_player(int(player_id), name, team, ppg, rpg, apg)
+                sql_player.create_sql_player(int(player_id), name, team, ppg, rpg, apg)
 
     except AttributeError as e:
         print("Player found but has no stats")
 
-last = datetime.datetime.now()
-print((last - first).min)
+
 
 
 
