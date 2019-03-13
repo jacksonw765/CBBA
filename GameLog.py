@@ -63,8 +63,14 @@ class GameLog:
             base_index = base_index * 3
             self.log_games(base_log, base_index)
         if year == 'Senior':
-            base_index = base_index * 4
-            self.log_games(base_log, base_index)
+            #check if 5th year
+            if base_log.__len__() >= 182:
+                print("5th YR")
+                base_index = base_index * 5
+                self.log_games(base_log, base_index)
+            else:
+                base_index = base_index * 4
+                self.log_games(base_log, base_index)
 
 
 root_page = 'http://www.espn.com/mens-college-basketball/player/_/id/'
@@ -72,11 +78,10 @@ remainder = '/justin-jenifer?src=mobile'
 
 id_list = sql_player.get_ids()
 
-
 for id in id_list:
     request = root_page + str(id) + remainder
     page = requests.get(request)
     soup = bs4.BeautifulSoup(page.content, 'html.parser')
     name = soup.find_all('h1')[0].getText()
     GameLog(id).log_player_games(soup)
-    print("Games logged for: " + name)
+    print("Player: " + name + ", ID: " + str(id) + " found")
