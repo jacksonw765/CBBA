@@ -47,30 +47,32 @@ class GameLog:
                                         game_three[4],
                                         game_three[5], game_three[6], game_three[7], game_three[8])
         except Exception as e:
-            print("Error bitch: " + e.__str__())
+            print("No stats found: " + e.__str__() + ": " + str(self.id))
 
     # this is a horible way to do it but it works and I'm pressed for time
     def log_player_games(self, soup):
-        year = soup.find('ul', 'general-info').find_all('li')[1].getText()
-        base_index = 28
-        base_log = soup.find_all("td", attrs={'style': 'text-align: right;'})
-        if year == "Freshman":
-            self.log_games(base_log, base_index)
-        if year == "Sophomore":
-            base_index = base_index * 2
-            self.log_games(base_log, base_index)
-        if year == 'Junior':
-            base_index = base_index * 3
-            self.log_games(base_log, base_index)
-        if year == 'Senior':
-            #check if 5th year
-            if base_log.__len__() >= 182:
-                print("5th YR")
-                base_index = base_index * 5
+        try:
+            year = soup.find('ul', 'general-info').find_all('li')[1].getText()
+            base_index = 28
+            base_log = soup.find_all("td", attrs={'style': 'text-align: right;'})
+            if year == "Freshman":
                 self.log_games(base_log, base_index)
-            else:
-                base_index = base_index * 4
+            if year == "Sophomore":
+                base_index = base_index * 2
                 self.log_games(base_log, base_index)
+            if year == 'Junior':
+                base_index = base_index * 3
+                self.log_games(base_log, base_index)
+            if year == 'Senior':
+                # check if 5th year
+                if base_log.__len__() >= 182:
+                    base_index = base_index * 5
+                    self.log_games(base_log, base_index)
+                else:
+                    base_index = base_index * 4
+                    self.log_games(base_log, base_index)
+        except Exception as ex:
+            print("Woah big error: " + self.id + " " +ex.__str__())
 
 
 root_page = 'http://www.espn.com/mens-college-basketball/player/_/id/'
