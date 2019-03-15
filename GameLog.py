@@ -34,6 +34,20 @@ class GameLog:
             game.append(pts)
         return game
 
+    # recursively checks if min is valid
+    def validate_index(self, base_log, index):
+        base_index = index
+        if base_log.__len__() < index:
+            base_index = 28
+        try:
+            min = int(base_log[base_index].getText())
+            if min <= 35:
+                return base_index
+            else:
+                return self.validate_index(base_log, base_index + 28)
+        except IndexError:
+            return base_index
+
     def log_games(self, base_log, base_index):
         try:
             game_one = self.get_previous_game(base_log, base_index)
@@ -49,30 +63,55 @@ class GameLog:
         except Exception as e:
             print("No stats found: " + e.__str__() + ": " + str(self.id))
 
-    # this is a horible way to do it but it works and I'm pressed for time
+    # this is a horrible way to do it but it works and I'm pressed for time
     def log_player_games(self, soup):
         try:
             year = soup.find('ul', 'general-info').find_all('li')[1].getText()
             base_index = 28
             base_log = soup.find_all("td", attrs={'style': 'text-align: right;'})
             if year == "Freshman":
-                self.log_games(base_log, base_index)
+                index = None
+                if base_index > int(base_log.__len__()):
+                    index = self.validate_index(base_log, base_index)
+                else:
+                    index = base_index
+                self.log_games(base_log, index)
             if year == "Sophomore":
                 base_index = base_index * 2
-                self.log_games(base_log, base_index)
+                index = None
+                if base_index > int(base_log.__len__()):
+                    index = self.validate_index(base_log, base_index)
+                else:
+                    index = base_index
+                self.log_games(base_log, index)
             if year == 'Junior':
                 base_index = base_index * 3
-                self.log_games(base_log, base_index)
+                index = None
+                if base_index > int(base_log.__len__()):
+                    index = self.validate_index(base_log, base_index)
+                else:
+                    index = base_index
+                self.log_games(base_log, index)
             if year == 'Senior':
                 # check if 5th year
-                if base_log.__len__() >= 182:
+                if base_log.__len__() > 182:
                     base_index = base_index * 5
-                    self.log_games(base_log, base_index)
+                    index = None
+                    if base_index > int(base_log.__len__()):
+                        index = self.validate_index(base_log, base_index)
+                    else:
+                        index = base_index
+                    self.log_games(base_log, index)
                 else:
                     base_index = base_index * 4
-                    self.log_games(base_log, base_index)
+                    index = None
+                    if base_index > int(base_log.__len__()):
+                        index = self.validate_index(base_log, base_index)
+                    else:
+                        index = base_index
+                    self.log_games(base_log, index)
         except Exception as ex:
-            print("Woah big error: " + self.id + " " +ex.__str__())
+            print("Woah big error: " + str(self.id) + " " +ex.__str__())
 
 
 root_page = 'http://www.espn.com/mens-college-basketball/player/_/id/'
